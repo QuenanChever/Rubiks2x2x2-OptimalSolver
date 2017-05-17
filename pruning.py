@@ -41,7 +41,7 @@ def create_cornerprun_table():
         fh = open(fname, "wb")
         corner_depth.tofile(fh)
     else:
-        print("loading " + fname + " table...")
+        # print("loading " + fname + " table...")
         fh = open(fname, "rb")
         corner_depth = ar.array('b')
         corner_depth.fromfile(fh, defs.N_CORNERS * defs.N_TWIST)
