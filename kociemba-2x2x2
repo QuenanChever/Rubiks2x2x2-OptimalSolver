@@ -10,4 +10,4 @@ if len(sys.argv) == 2:
         solution = solve(sys.argv[1])
         print(solution)
 else:
-    print('Usage: kociemba-2x2x2 <cubestring>\nFor example:\nkociemba-2x2x2 DDUUBFRURRUFLDDLRFLBLBFB')
+    print('Usage: kociemba-2x2x2 <cubestring>\nFor example:\nkociemba-2x2x2 DRLUUBFBRBLURRLRUBLRDDFDLFUFUFFDBRDUBRUFLLFDDBFLUBLRBD')

@@ -2,10 +2,12 @@
 
 ## Overview
 This project implements an optimal solver for the 2x2x2 Rubik's cube. All optimal (=shortest) solving maneuvers are computed. The computation time is neglectible.
+
 The solver only uses moves of the U, R and B faces because the DBL-corner is fixed. The color scheme of the cube is detected automatically.
 
 ## Fork
-This repository is forked from the Rubiks 2x2x2 solver created by Herbert Kociemba [hkociemba/RubiksCube-TwophaseSolver](https://github.com/hkociemba/RubiksCube-TwophaseSolver).
+This repository is forked from the Rubiks 2x2x2 solver created by Herbert Kociemba: [hkociemba/Rubiks2x2x2-OptimalSolver](https://github.com/hkociemba/RubiksCube-TwophaseSolver).
+
 Unlike the original repository, this version is meant to be used from the command line.
 
 ## Setup
@@ -17,14 +19,13 @@ To make the solver available on the command line, you must create a symlink (fee
 ```
 sudo ln -s "$(pwd)/kociemba-2x2x2" /usr/local/bin/kociemba-2x2x2
 ```
-
-There are pruning tables which are created on the first run. This needs about 4 MB disk space and it takes from less than a minute to a couple of minutes to create it, depending on the hardware. You can do it behorehand by executing this command:
+There are several tables which must be created on the first run. This needs about 4 MB disk space and it takes from less than a minute to a couple of minutes to create it, depending on the hardware. You can generate these tables behorehand by executing this command:
 ```
 kociemba-2x2x2 --init
 ```
 
 ## Usage
-The following command returns the solving maneuver:
+The following command returns a solving maneuver for the given cubestring:
 ```
 kociemba-2x2x2 <cubestring>
 ```
