@@ -5,14 +5,16 @@ import array as ar
 import cubie as cb
 import enums
 from defs import N_TWIST, N_CORNERS, N_MOVE
+from misc import get_pruning_table_path
 
 a = cb.CubieCube()
 # ############################ Move table for the the corners. ##################################
 
 # The twist coordinate describes the 3^6 = 729 possible orientations of the 8 corners
-fname = "move_corntwist"
-if not path.isfile(fname):
-    print("creating " + fname + " table...")
+table_name = "move_corntwist"
+table_path = get_pruning_table_path(table_name)
+if not path.isfile(table_path):
+    print("creating " + table_name + " table...")
     corntwist_move = ar.array('H', [0 for i in range(N_TWIST * N_MOVE)])
     for i in range(N_TWIST):
         a.set_cornertwist(i)
@@ -21,19 +23,20 @@ if not path.isfile(fname):
                 a.multiply(cb.basicMoveCube[j])
                 corntwist_move[N_MOVE * i + 3 * j + k] = a.get_corntwist()
             a.multiply(cb.basicMoveCube[j])  # 4. move restores face
-    fh = open(fname, "wb")
+    fh = open(table_path, "wb")
     corntwist_move.tofile(fh)
 else:
-    # print("loading " + fname + " table...")
-    fh = open(fname, "rb")
+    # print("loading " + table_name + " table...")
+    fh = open(table_path, "rb")
     corntwist_move = ar.array('H')
     corntwist_move.fromfile(fh, N_TWIST * N_MOVE)
 fh.close()
 
 # The corners coordinate describes the 7! = 5040 permutations of the corners.
-fname = "move_cornperm"
-if not path.isfile(fname):
-    print("creating " + fname + " table...")
+table_name = "move_cornperm"
+table_path = get_pruning_table_path(table_name)
+if not path.isfile(table_path):
+    print("creating " + table_name + " table...")
     cornperm_move = ar.array('H', [0 for i in range(N_CORNERS * N_MOVE)])
     # Move table for the corners. corner  < 40320
     for i in range(N_CORNERS):
@@ -45,12 +48,12 @@ if not path.isfile(fname):
                 a.multiply(cb.basicMoveCube[j])
                 cornperm_move[N_MOVE * i + 3 * j + k] = a.get_cornperm()
             a.multiply(cb.basicMoveCube[j])
-    fh = open(fname, "wb")
+    fh = open(table_path, "wb")
     cornperm_move.tofile(fh)
     print()
 else:
-    # print("loading " + fname + " table...")
-    fh = open(fname, "rb")
+    # print("loading " + table_name + " table...")
+    fh = open(table_path, "rb")
     cornperm_move = ar.array('H')
     cornperm_move.fromfile(fh, N_CORNERS * N_MOVE)
 fh.close()

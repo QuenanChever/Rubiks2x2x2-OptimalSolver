@@ -5,6 +5,7 @@ import defs
 import enums
 import moves as mv
 from os import path
+from misc import get_pruning_table_path
 import array as ar
 
 corner_depth = None
@@ -12,10 +13,11 @@ corner_depth = None
 
 def create_cornerprun_table():
     """Creates/loads the corner pruning table."""
-    fname = "cornerprun"
+    table_name = "cornerprun"
+    table_path = get_pruning_table_path(table_name)
     global corner_depth
-    if not path.isfile(fname):
-        print("creating " + fname + " table...")
+    if not path.isfile(table_path):
+        print("creating " + table_name + " table...")
         corner_depth = ar.array('b', [-1] * (defs.N_CORNERS * defs.N_TWIST))
         corners = 0  # values for solved cube
         twist = 0
@@ -38,11 +40,11 @@ def create_cornerprun_table():
 
             depth += 1
         print()
-        fh = open(fname, "wb")
+        fh = open(table_path, "wb")
         corner_depth.tofile(fh)
     else:
-        # print("loading " + fname + " table...")
-        fh = open(fname, "rb")
+        # print("loading " + table_name + " table...")
+        fh = open(table_path, "rb")
         corner_depth = ar.array('b')
         corner_depth.fromfile(fh, defs.N_CORNERS * defs.N_TWIST)
     fh.close()
